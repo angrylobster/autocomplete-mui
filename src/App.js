@@ -1,22 +1,23 @@
-import logo from './logo.svg';
+import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { useState } from 'react';
 import './App.css';
+import { CountriesAutocomplete } from './components/CountriesAutocomplete';
 
 function App() {
+  const [selectedCountries, setSelectedCountries] = useState([]);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <CountriesAutocomplete 
+          selectCountry={country => setSelectedCountries([...selectedCountries, country])}
+        />
+
+        <Box display="flex" sx={{ gap: '16px' }}> 
+          {
+            selectedCountries.map((country, index) => <Typography key={index} sx={{ color: 'black' }}>{country?.code}</Typography>)
+          }
+        </Box>
       </header>
     </div>
   );
